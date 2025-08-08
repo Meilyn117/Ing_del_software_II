@@ -7,29 +7,31 @@ import ProtectedRoute from "./components/ProtectedRoute";
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
+      <div data-testid="app-root">
+        <Routes>
+          <Route path="/" element={<Login />} />
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={["admin"]}>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/perfil"
-          element={
-            <ProtectedRoute allowedRoles={["cliente", "admin"]}>
-              <Perfil />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/perfil"
+            element={
+              <ProtectedRoute allowedRoles={["cliente", "admin"]}>
+                <Perfil />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

@@ -17,10 +17,16 @@ export default function Perfil() {
   }
 
   return (
-    <div style={{ padding: 24, fontFamily: "sans-serif" }}>
-      <h2>{usuario ? `Hola, ${usuario.nombre}` : "Perfil"}</h2>
-      {usuario && <p>Rol: {usuario.rol}</p>}
-      <button onClick={onLogout} style={{ marginTop: 12 }}>Cerrar sesión</button>
+    <div data-testid="perfil-page" style={{ padding: 24, fontFamily: "sans-serif" }}>
+      <h2 data-testid="perfil-greeting">
+        {usuario ? `Hola, ${usuario.nombre}` : "Perfil"}
+      </h2>
+
+      {usuario && <p data-testid="perfil-role">Rol: {usuario.rol}</p>}
+
+      <button data-testid="perfil-logout" onClick={onLogout} style={{ marginTop: 12 }}>
+        Cerrar sesión
+      </button>
     </div>
   );
 }

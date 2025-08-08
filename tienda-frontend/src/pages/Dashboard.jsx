@@ -7,6 +7,7 @@ export default function Dashboard() {
   useEffect(() => {
     (async () => {
       const s = await getSession();
+    
       setUsuario(s?.usuario || null);
     })();
   }, []);
@@ -17,10 +18,18 @@ export default function Dashboard() {
   }
 
   return (
-    <div style={{ padding: 24, fontFamily: "sans-serif" }}>
-      <h2>{usuario?.rol === "admin" ? "Hola, admin" : "Dashboard"}</h2>
-      {usuario && <p>Bienvenido: {usuario.nombre}</p>}
-      <button onClick={onLogout} style={{ marginTop: 12 }}>Cerrar sesión</button>
+    <div data-testid="dash-page" style={{ padding: 24, fontFamily: "sans-serif" }}>
+      <h2 data-testid="dash-title">
+        {usuario?.rol === "admin" ? "Hola, admin" : "Dashboard"}
+      </h2>
+
+      {usuario && (
+        <p data-testid="dash-user-welcome">Bienvenido: {usuario.nombre}</p>
+      )}
+
+      <button data-testid="dash-logout" onClick={onLogout} style={{ marginTop: 12 }}>
+        Cerrar sesión
+      </button>
     </div>
   );
 }

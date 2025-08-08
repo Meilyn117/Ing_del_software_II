@@ -9,7 +9,6 @@ export default function Login() {
   const [error, setError] = useState("");
   const [checking, setChecking] = useState(true);
 
-  // Si ya hay sesión, redirige según rol
   useEffect(() => {
     (async () => {
       const s = await getSession();
@@ -31,15 +30,24 @@ export default function Login() {
     }
   }
 
-  if (checking) return <div style={{ padding: 24 }}>Verificando sesión…</div>;
+  if (checking) {
+    return (
+      <div data-testid="login-loading" style={{ padding: 24 }}>
+        Verificando sesión…
+      </div>
+    );
+  }
 
   return (
-    <div style={{ maxWidth: 360, margin: "40px auto", fontFamily: "sans-serif" }}>
-      <h2>Iniciar sesión</h2>
-      <form onSubmit={onSubmit}>
+    <div data-testid="login-page" style={{ maxWidth: 360, margin: "40px auto", fontFamily: "sans-serif" }}>
+      <h2 data-testid="login-title">Iniciar sesión</h2>
+
+      <form data-testid="login-form" onSubmit={onSubmit}>
         <div>
-          <label>Email</label><br />
+          <label htmlFor="login-email">Email</label><br />
           <input
+            id="login-email"
+            data-testid="login-email"
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
@@ -47,9 +55,12 @@ export default function Login() {
             required
           />
         </div>
+
         <div style={{ marginTop: 8 }}>
-          <label>Contraseña</label><br />
+          <label htmlFor="login-password">Contraseña</label><br />
           <input
+            id="login-password"
+            data-testid="login-password"
             type="password"
             value={contrasena}
             onChange={e => setContrasena(e.target.value)}
@@ -57,8 +68,16 @@ export default function Login() {
             required
           />
         </div>
-        {error && <div style={{ color: "crimson", marginTop: 8 }}>{error}</div>}
-        <button type="submit" style={{ marginTop: 12 }}>Entrar</button>
+
+        {error && (
+          <div data-testid="login-error" style={{ color: "crimson", marginTop: 8 }}>
+            {error}
+          </div>
+        )}
+
+        <button data-testid="login-submit" type="submit" style={{ marginTop: 12 }}>
+          Entrar
+        </button>
       </form>
     </div>
   );

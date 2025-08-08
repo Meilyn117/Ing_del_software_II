@@ -15,7 +15,7 @@ export default function ProtectedRoute({ allowedRoles, children }) {
           setSession(null);
         } else {
           const data = await res.json();
-          setSession(data.usuario); // { id, nombre, rol }
+          setSession(data.usuario);
         }
       } catch {
         setSession(null);
@@ -26,13 +26,21 @@ export default function ProtectedRoute({ allowedRoles, children }) {
     check();
   }, []);
 
-  if (loading) return <div style={{ padding: 24 }}>Cargando…</div>;
-  if (!session) return <Navigate to="/" replace />;
-
+  if (loading) {
+    return (
+      <div data-testid="protected-loading" style={{ padding: 24 }}>
+        Cargando…
+      </div>
+    );
+  }
+  if (!session) {
+    return <Navigate to="/" replace />;
+  }
   if (allowedRoles && !allowedRoles.includes(session.rol)) {
-    // Si no tiene permiso, lo mandamos a su landing natural
-    return session.rol === "admin" ? <Navigate to="/dashboard" replace /> : <Navigate to="/perfil" replace />;
+    return session.rol === "admin"
+      ? <Navigate to="/dashboard" replace />
+      : <Navigate to="/perfil" replace />;
   }
 
-  return children;
+  return <div data-testid="protected-content">{children}</div>;
 }
