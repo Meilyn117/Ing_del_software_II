@@ -18,7 +18,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div data-testid="dash-page" style={{ padding: 24, fontFamily: "sans-serif" }}>
+    <div data-testid="dash-page" className="page-container">
       <h2 data-testid="dash-title">
         {usuario?.rol === "admin" ? "Hola, admin" : "Dashboard"}
       </h2>

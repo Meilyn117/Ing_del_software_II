@@ -39,7 +39,9 @@ export default function Login() {
   }
 
   return (
-    <div data-testid="login-page" style={{ maxWidth: 360, margin: "40px auto", fontFamily: "sans-serif" }}>
+    <div 
+    data-testid="login-page" 
+    className="page-container">
       <h2 data-testid="login-title">Iniciar sesión</h2>
 
       <form data-testid="login-form" onSubmit={onSubmit}>

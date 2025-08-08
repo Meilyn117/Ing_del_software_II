@@ -17,7 +17,7 @@ export default function Perfil() {
   }
 
   return (
-    <div data-testid="perfil-page" style={{ padding: 24, fontFamily: "sans-serif" }}>
+    <div data-testid="perfil-page" className="page-container">
       <h2 data-testid="perfil-greeting">
         {usuario ? `Hola, ${usuario.nombre}` : "Perfil"}
       </h2>
