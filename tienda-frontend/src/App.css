@@ -1,58 +1,274 @@
-/* ======== Estilos globales ======== */
+/* ======== RESET & GLOBAL ======== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow-x: hidden; /* evita scroll horizontal */
+  width: 100%;
+  max-width: 100%;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
   margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #0d47a1; /* azul siempre */
+  color: #111;
 }
 
-h2 {
-  color: #333;
+/* ======== LAYOUT PANTALLA LOGIN ======== */
+.login-screen {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0d47a1; /* backup por si acaso */
 }
 
-/* ======== Contenedores ======== */
-.page-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 24px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+/* ======== HEADER FULL-WIDTH SIN SCROLL ======== */
+.header {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: sticky;         
+  top: 0;
+  z-index: 50;
+  overflow-x: clip;        /* evita que algo se salga horizontalmente */
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
-/* ======== Formularios ======== */
-form label {
+.header-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+/* ======== SEARCH ======== */
+.search-wrap {
+  position: relative;
+  max-width: 620px;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  opacity: 0.9;
+  pointer-events: none;
+  filter: brightness(0) invert(1); /* icono blanco */
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 12px 10px 38px; /* espacio para el icono */
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  outline: none;
+  min-width: 0;
+}
+.search-input::placeholder {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ======== ICON BUTTONS ======== */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  width: 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.15);
+  cursor: pointer;
+  outline: none;
+  flex: 0 0 auto;
+}
+.icon-btn:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1); /* fuerza iconos a blanco */
+}
+
+/* ======== LOGIN POPOVER (GLOBITO) ======== */
+.login-popover {
+  position: absolute;
+  top: 56px;
+  right: 8px;
+
+  width: 320px;
+  min-width: 280px;
+  max-width: calc(100vw - 32px);
+
+  padding: 16px;
+  background: #ffffff;
+  color: #222;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+  z-index: 100;
+
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.login-popover-arrow {
+  position: absolute;
+  top: -8px;
+  right: 22px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #ffffff;
+}
+
+.popover-title {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+/* ======== FORM EN POPOVER ======== */
+.label {
+  display: block;
   font-weight: bold;
+  margin-top: 8px;
   font-size: 14px;
 }
 
-form input {
+.input {
   width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-  border-radius: 4px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  margin-top: 6px;
+  border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 14px;
+  display: block;
 }
 
-form button {
+.btn-primary {
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  font-size: 15px;
+  margin-top: 12px;
+  padding: 10px 12px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
+  background: #0d47a1;
+  color: #fff;
   cursor: pointer;
 }
-
-form button:hover {
-  background-color: #0056b3;
+.btn-primary:hover {
+  background: #0a3a86;
 }
 
-/* ======== Mensajes ======== */
 .error-message {
   color: crimson;
   font-size: 13px;
   margin-top: 8px;
+}
+
+/* ======== CONTENIDO LOGIN (título + grid) ======== */
+.login-content {
+  padding: 28px 16px 40px;
+  background: #0d47a1;
+}
+
+.page-title {
+  margin: 12px 0 16px;
+  font-size: 28px;
+  color: #fff;
+}
+
+/* Grid responsivo de cards */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Breakpoints simples */
+@media (min-width: 560px) {
+  .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) {
+  .cards-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Card base */
+.card {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+  color: #fff;
+  min-width: 0;
+}
+
+.card-img {
+  height: 140px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06));
+}
+
+.card-body {
+  padding: 12px;
+}
+.card-title {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+.card-text {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.9);
+}
+
+.card-btn {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border-radius: 8px;
+  cursor: not-allowed;
+}
+.card-btn:hover {
+  background: rgba(255,255,255,0.18);
+}
+
+/* ======== ESPACIO VACÍO DE HERO ======== */
+.login-hero {
+  flex: 1;
+  background: #0d47a1;
 }
