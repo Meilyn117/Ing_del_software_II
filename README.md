@@ -27,7 +27,7 @@ Antes de correr el proyecto asegúrate de tener instalado:
 2. Importar el script de la base de datos incluido en el proyecto (`script_tienda_online.sql`) usando **phpMyAdmin** o línea de comandos:
 
 ```sql
-SOURCE /ruta/al/script_tienda_online.sql;
+SOURCE sql/tienda_online.sql
 ```
 
 3. Verifica que se haya creado la base `tienda_online` con sus tablas.
