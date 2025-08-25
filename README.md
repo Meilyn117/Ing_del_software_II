@@ -18,6 +18,19 @@ Antes de correr el proyecto asegúrate de tener instalado:
 - [Node.js v20.12.0](https://nodejs.org/) o superior.  
 - [npm](https://www.npmjs.com/) (incluido con Node).  
 - Un navegador compatible (**Google Chrome** o **Microsoft Edge**).  
+- [Playwright](https://playwright.dev/) para pruebas end-to-end.  
+
+### Instalación de Playwright y navegadores
+
+En la carpeta del frontend:
+
+```bash
+npm i -D @playwright/test
+npx playwright install
+```
+
+Esto instalará las dependencias y los binarios de navegadores.  
+Para este proyecto se usarán específicamente **Chrome** y **Edge**.
 
 ---
 
@@ -31,6 +44,23 @@ SOURCE sql/tienda_online.sql
 ```
 
 3. Verifica que se haya creado la base `tienda_online` con sus tablas.
+
+---
+
+## 👥 Usuarios de prueba
+
+Para ejecutar las pruebas funcionales es necesario contar con al menos un **usuario administrador** y un **usuario cliente** en la base de datos.  
+Las contraseñas están encriptadas con **bcrypt** y corresponden a la clave en texto plano: `123456`.
+
+Ejecuta estas sentencias SQL después de haber importado el script de la base:
+
+```sql
+INSERT INTO Usuario (nombre, email, contrasena, rol)
+VALUES ('Meilyn Flores', 'meilyn@correo.com', '$2b$10$YXTTrIHBraMr0eTPtAvk8OIAQTZ7I3XTUtylPH3mpRKax3qzyWjK6', 'admin');
+
+INSERT INTO Usuario (nombre, email, contrasena, rol)
+VALUES ('Genesis Ramirez', 'genesis@correo.com', '$2b$10$YXTTrIHBraMr0eTPtAvk8OIAQTZ7I3XTUtylPH3mpRKax3qzyWjK6', 'cliente');
+```
 
 ---
 
@@ -106,9 +136,28 @@ http://localhost:5173/
 
 - MySQL encendido en XAMPP (puerto configurado en `.env`).  
 - Base de datos `tienda_online` creada a partir del script.  
+- Usuarios de prueba insertados en la tabla `Usuario`.  
 - Dependencias instaladas tanto en **backend** como en **frontend**.  
 - Backend corriendo en `http://localhost:3001`.  
 - Frontend corriendo en `http://localhost:5173`.  
+
+---
+
+## 🧪 Ejecución de pruebas (Playwright)
+
+Con backend y frontend corriendo:
+
+```bash
+npx playwright test
+```
+
+Para abrir el modo interactivo con interfaz gráfica:
+
+```bash
+npx playwright test --ui
+```
+
+El reporte HTML se genera en la carpeta `playwright-report/`.
 
 ---
 
