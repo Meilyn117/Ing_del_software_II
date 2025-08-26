@@ -161,6 +161,39 @@ El reporte HTML se genera en la carpeta `playwright-report/`.
 
 ---
 
+# Pruebas de Rendimiento con JMeter – Tienda Online
+
+## Requisitos
+- Apache JMeter 5.6+
+- Backend corriendo en http://localhost:3001
+
+## Archivos
+- `tests/jmeter/tienda_plan.jmx`: plan base con Smoke y Carga.
+- `tests/jmeter/users.csv`: usuarios de prueba (admin y cliente).
+
+## Escenarios incluidos
+- **Smoke:** 5 usuarios, 5 minutos (valida disponibilidad básica).
+- **Carga:** 50 usuarios, 20 minutos, con ramp-up de 10 minutos.
+
+## Umbrales esperados
+- POST /api/login: tiempo medio ≤ 800 ms
+- GET  /api/catalog: tiempo medio ≤ 600 ms [pendiente]
+- GET  /api/orders (admin): tiempo medio ≤ 900 ms [pendiente]
+- Errores (4xx/5xx inesperados) ≤ 1% del total [pendiente]
+
+## Cómo ejecutar (GUI)
+1. Abre JMeter y carga `tests/jmeter/tienda_plan.jmx`.
+2. Ajusta HOST/PORT si tu API no es localhost:3001 (en variables del Test Plan).
+3. Ejecuta y revisa **Summary Report**.
+
+## Cómo ejecutar (No GUI + reporte HTML)
+```bash
+jmeter -n -t tests/jmeter/tienda_plan.jmx -l tests/jmeter/results.jtl -e -o tests/jmeter/report
+```
+
+Abre el reporte en `tests/jmeter/report/index.html`.
+
+
 ## 📌 Notas
 
 - Solo se garantiza compatibilidad en **Chrome** y **Edge**.  
